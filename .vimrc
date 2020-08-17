@@ -19,7 +19,7 @@ syntax on
 "---
 
 "Theme---
-colorscheme koehler 
+colorscheme delek
 "---
 
 "Compiler maps---
