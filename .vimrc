@@ -19,7 +19,7 @@ syntax on
 "---
 
 "Theme---
-colorscheme delek
+colorscheme summerfruit
 "---
 
 "Compiler maps---
@@ -38,10 +38,19 @@ if executable(s:clip)
 endif
 "---
 
+"Lightline---
+let g:lightline = {
+      \ 'colorscheme': '16color',
+      \ }
+set laststatus=2
+set noshowmode
+"---
+
 "Plugins---
 call plug#begin('~/.vim/plugged')
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'neoclide/coc.nvim',{'branch':'release'}
+	Plug 'itchyny/lightline.vim'
 call plug#end()
 "---
 
