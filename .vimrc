@@ -15,45 +15,49 @@ set clipboard=unnamedplus
 set ruler
 set number
 set showmode
-set cursorline
 syntax on
 "---
 
 "Theme---
-colorscheme vibrant256
+colorscheme summerfruit256
 "---
 
-"TabLine--
-set showtabline=2 
+"Plugins---
+call plug#begin('~/.vim/plugged')
+	Plug 'jiangmiao/auto-pairs'
+	Plug 'neoclide/coc.nvim',{'branch':'release'}
+	Plug 'itchyny/lightline.vim'
+	Plug 'mengelbrecht/lightline-bufferline'
+	Plug 'preservim/nerdtree'
+call plug#end()
 "---
 
-"StatusLine---
-let g:currentmode={ 'n' : 'Normal ', 'no' : 'N·Operator Pending ', 'v' : 'Visual ', 'V' : 'V·Line ', '^V' : 'V·Block ', 's' : 'Select ', 'S': 'S·Line ', '^S' : 'S·Block ', 'i' : 'Insert ', 'R' : 'Replace ', 'Rv' : 'V·Replace ', 'c' : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r' : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!' : 'Shell ', 't' : 'Terminal '}
-function! ModeCurrent() abort
-    let l:modecurrent = mode()
-    let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
-    let l:current_status_mode = l:modelist
-    return l:current_status_mode
-endfunction
-set noshowmode
+"Stautusline---
 set laststatus=2
-au InsertEnter * hi statusline ctermfg=255 ctermbg=9
-au InsertLeave * hi statusline ctermfg=255 ctermbg=201
-hi statusline ctermfg=255 ctermbg=201
-set statusline=
-set statusline+=%0*\ %{ModeCurrent()}\  "mode
-set statusline+=%1*\ line:\ %02l\ of\ %L\  "line
-set statusline+=%2*\ %<%Y\  "type, modified, readonly, helpfile, preview
-set statusline+=%= "right
-set statusline+=%2*\ %<%F%m%r%h%w\  "path
-set statusline+=%1*\%3p%%\  "percent document
-set statusline+=%0*\ %n\  "buffer
-hi User1 ctermfg=7 ctermbg=254
-hi User2 ctermfg=7 ctermbg=255
-hi User3 ctermfg=255 ctermbg=255
-hi User4 ctermfg=254 ctermbg=254
+let g:lightline = {
+      \ 'colorscheme': 'OldHope',
+      \ }
 "---
 
+"BufferLine---
+set showtabline=2
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
+"---
 
 "Compiler maps---
 map zz :!g++ -std=c++17 -g % -o %:r <bar> clear <CR>
@@ -71,13 +75,6 @@ if executable(s:clip)
 endif
 "---
 
-"Plugins---
-call plug#begin('~/.vim/plugged')
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'neoclide/coc.nvim',{'branch':'release'}
-call plug#end()
-"---
-
 "Coc-snippets tab to next---
 noremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -93,8 +90,9 @@ function! s:check_back_space() abort
 	let g:coc_snippet_next = '<tab>'
 "---
 
-"Coc-nav 1.enter to select option 2.next option 3.prev. option---
+"Coc-nav 1.enter to select option 2.next option 3.prev. 4.explore toggle option---
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+map <space> :NERDTreeToggle<CR>
 "---
