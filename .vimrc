@@ -18,8 +18,8 @@ set showmode
 syntax on
 "---
 
-"Theme---
-colorscheme summerfruit256
+"Fixes---
+set t_ut=""
 "---
 
 "Plugins---
@@ -32,10 +32,15 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 "---
 
+"Theme---
+colorscheme summerfruit256
+hi Visual ctermfg=none ctermbg=250
+"---
+
 "Stautusline---
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'OldHope',
+      \ 'colorscheme': 'one',
       \ }
 "---
 
@@ -90,9 +95,10 @@ function! s:check_back_space() abort
 	let g:coc_snippet_next = '<tab>'
 "---
 
-"Coc-nav 1.enter to select option 2.next option 3.prev. 4.explore toggle option---
+"Coc-nav 1.enter to select option 2.next option 3.prev. 4.nextbuffer  5.explore toggle option---
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-map <space> :NERDTreeToggle<CR>
+map<space> :bn<CR>
+map <C-n> :NERDTreeToggle<CR>
 "---
