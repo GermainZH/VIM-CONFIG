@@ -18,8 +18,15 @@ set showmode
 syntax on
 "---
 
-"Fixes---
+"Fixes 1.rendering leaks 2.mouse support ---
 set t_ut=""
+
+set mouse=a
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
 "---
 
 "Plugins---
@@ -33,21 +40,21 @@ call plug#end()
 "---
 
 "Theme---
-colorscheme summerfruit256
+colorscheme nord
 hi Visual ctermfg=none ctermbg=250
 "---
 
 "Stautusline---
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'nord',
       \ }
 "---
 
 "BufferLine---
 set showtabline=2
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
       \ },
